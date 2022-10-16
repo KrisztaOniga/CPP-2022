@@ -20,153 +20,204 @@ List::~List() {
 }
 
 bool List::exists(int d) const {
-    Node *temp = first;
-    while (temp) {
-        if (temp->value == 0)
-            return true;
-        else
-            temp = first->next;
+    Node *temp = this->first;
+    while(temp){
+        if(temp->value == d) return true;
+        temp = temp->next;
     }
-
     temp = nullptr;
     return false;
 }
 
 int List::size() const {
-    return nodeCounter;
+    return this->nodeCounter;
 }
 
 bool List::empty() const {
-    return nodeCounter == 0;
+    return this->nodeCounter == 0;
 }
 
 void List::insertFirst(int d) {
-    first = new Node(d, first);
-    nodeCounter++;
+    Node *newNode = new Node(d, this->first);
+    this->first = newNode;
+    ++nodeCounter;
 }
 
 int List::removeFirst() {
     if (this->empty()) {
-        throw std::invalid_argument("Empty list");
+        throw std::invalid_argument("Empty list\n");
     }
-    Node *temp = first;
-    first = first->next;
-
-    int tempValue = temp->value;
-    delete temp;
-    nodeCounter--;
-    return 0;
+    else if(nodeCounter == 1){
+        int tempValue = this->first->value;
+        delete this->first;
+        this->first = nullptr;
+        --nodeCounter;
+        return tempValue;
+    }
+    Node *tempNode = this->first->next;
+    int tempValue = this->first->value;
+    delete this->first;
+    this->first = tempNode;
+    tempNode = nullptr;
+    --nodeCounter;
+    return tempValue;
 }
 
-void List::remove(int d, List::DeleteFlag df) {
-    Node *temp = nullptr, *temp1 = first, *temp2 = temp1->next;
-    while (temp1) {
-        temp2 = temp1->next;
-        if (df == DeleteFlag::LESS) {
-            if (temp1->value < d) {
-                if (temp == nullptr) {
-                    temp = temp1;
-                    delete temp;
-                    nodeCounter--;
-                    if(temp2 != nullptr && temp2->next != nullptr){
-                        temp1 = temp1->next;
-                        temp2 = temp2->next;
-                        temp = nullptr;
-                    }
-                    temp = nullptr;
+void List::remove(int d, DeleteFlag df){
+    switch (df) {
+        case DeleteFlag::LESS:{
+            Node *temp = this->first;
 
-                } else if (temp2 == nullptr) {
-                    temp->next = nullptr;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp;
-                } else {
-                    temp->next = temp2;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp2;
-                    temp2 = temp2->next;
+            while(temp){
+                if(temp->value < d){
+                    //torles
                 }
-                temp = temp1;
-                if (temp1) {
-                    temp1 = temp1->next;
-                    if (temp2) {
-                        temp2 = temp2->next;
-                    }
-                }
+                temp = temp->next;
             }
-        } else if (df == DeleteFlag::GREATER) {
-            if (temp1->value > d) {
-                if (temp == nullptr) {
-                    temp = temp1;
-                    delete temp;
-                    nodeCounter--;
-                    if(temp2 != nullptr && temp2->next != nullptr){
-                        temp1 = temp1->next;
-                        temp2 = temp2->next;
-                        temp = nullptr;
-                    }
-
-                } else if (temp2 == nullptr) {
-                    temp->next = nullptr;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp;
-                } else {
-                    temp->next = temp2;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp2;
-                    temp2 = temp2->next;
-                }
-            }
-            temp = temp1;
-            if (temp1) {
-                temp1 = temp1->next;
-                if (temp2) {
-                    temp2 = temp2->next;
-                }
-            }
+            temp = nullptr;
+            break;
         }
-        else if (df == DeleteFlag::EQUAL) {
-            if (temp1->value == d) {
-                if (temp == nullptr) {
-                    temp = temp1;
-                    delete temp;
-                    nodeCounter--;
-                    if(temp2 != nullptr && temp2->next != nullptr){
-                        temp1 = temp1->next;
-                        temp2 = temp2->next;
-                        temp = nullptr;
-                    }
+        case DeleteFlag::EQUAL:{
+            Node *temp = this->first;
 
-                } else if (temp2 == nullptr) {
-                    temp->next = nullptr;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp;
-                } else {
-                    temp->next = temp2;
-                    delete temp1;
-                    nodeCounter--;
-                    temp1 = temp2;
-                    temp2 = temp2->next;
+            while(temp){
+                if(temp->value == d){
+                    //torles
                 }
+                temp = temp->next;
             }
-            temp = temp1;
-            if (temp1) {
-                temp1 = temp1->next;
-                if (temp2) {
-                    temp2 = temp2->next;
+            temp = nullptr;
+            break;
+        }
+        case DeleteFlag::GREATER:{
+            Node *temp = this->first;
+
+            while(temp){
+                if(temp->value > d){
+                    //torles
                 }
+                temp = temp->next;
             }
+            temp = nullptr;
+            break;
+        }
+        default:{
+            break;
         }
     }
 }
+
+
+//void List::remove(int d, List::DeleteFlag df) {
+//    Node *temp = nullptr, *temp1 = first, *temp2 = temp1->next;
+//
+//    while (temp1) {
+//        temp2 = temp1->next;
+//        if (df == DeleteFlag::LESS) {
+//            if (temp1->value < d) {
+//                if (temp == nullptr) {
+//                    temp = temp1;
+//                    delete temp;
+//                    nodeCounter--;
+//                    if(temp2 != nullptr && temp2->next != nullptr){
+//                        temp1 = temp1->next;
+//                        temp2 = temp2->next;
+//                        temp = nullptr;
+//                    }
+//                    temp = nullptr;
+//
+//                } else if (temp2 == nullptr) {
+//                    temp->next = nullptr;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp;
+//                } else {
+//                    temp->next = temp2;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp2;
+//                    temp2 = temp2->next;
+//                }
+//                temp = temp1;
+//                if (temp1) {
+//                    temp1 = temp1->next;
+//                    if (temp2) {
+//                        temp2 = temp2->next;
+//                    }
+//                }
+//            }
+//        } else if (df == DeleteFlag::GREATER) {
+//            if (temp1->value > d) {
+//                if (temp == nullptr) {
+//                    temp = temp1;
+//                    delete temp;
+//                    nodeCounter--;
+//                    if(temp2 != nullptr && temp2->next != nullptr){
+//                        temp1 = temp1->next;
+//                        temp2 = temp2->next;
+//                        temp = nullptr;
+//                    }
+//
+//                } else if (temp2 == nullptr) {
+//                    temp->next = nullptr;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp;
+//                } else {
+//                    temp->next = temp2;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp2;
+//                    temp2 = temp2->next;
+//                }
+//            }
+//            temp = temp1;
+//            if (temp1) {
+//                temp1 = temp1->next;
+//                if (temp2) {
+//                    temp2 = temp2->next;
+//                }
+//            }
+//        }
+//        else if (df == DeleteFlag::EQUAL) {
+//            if (temp1->value == d) {
+//                if (temp == nullptr) {
+//                    temp = temp1;
+//                    delete temp;
+//                    nodeCounter--;
+//                    if(temp2 != nullptr && temp2->next != nullptr){
+//                        temp1 = temp1->next;
+//                        temp2 = temp2->next;
+//                        temp = nullptr;
+//                    }
+//
+//                } else if (temp2 == nullptr) {
+//                    temp->next = nullptr;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp;
+//                } else {
+//                    temp->next = temp2;
+//                    delete temp1;
+//                    nodeCounter--;
+//                    temp1 = temp2;
+//                    temp2 = temp2->next;
+//                }
+//            }
+//            temp = temp1;
+//            if (temp1) {
+//                temp1 = temp1->next;
+//                if (temp2) {
+//                    temp2 = temp2->next;
+//                }
+//            }
+//        }
+//    }
+//}
 
 
 void List::print() const {
-    Node *tempNode = first;
+    Node *tempNode = this->first;
     while (tempNode) {
         cout << tempNode->value << " ";
         tempNode = tempNode->next;

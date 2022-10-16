@@ -35,7 +35,8 @@ to remove. The enum values are accessed with List::DeleteFlag::LESS,
         LESS, EQUAL, GREATER
     };
     void remove(int d, DeleteFlag df = DeleteFlag::EQUAL);
-/* prints the contents of this list */
+
+    /* prints the contents of this list */
     void print() const;
 /* forbid copying of lists */
     List(const List&) = delete;

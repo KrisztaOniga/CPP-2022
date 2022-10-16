@@ -8,9 +8,9 @@ int main(int argc, char * argv[]) {
     cin>>feladat;
     switch (feladat) {
         case 1: {
-            int number;
-            cin >> number;
-            cout << countBits(number);
+            int n;
+            cin >> n;
+            cout << countBits(n);
             break;
         }
         case 2: {
