@@ -4,41 +4,59 @@
 
 #include "Stack.h"
 
-Stack::~Stack() {
-    cout << "Stack Destruktor" << endl;
-    while (top != 0) {
-        pop();
-    }
 
+void Stack::push(int e) {
+    data.insertFirst(e);
+    //this->data.insertFirst(e);
 }
 
 int Stack::pop() {
-    if (top <= 0) {
-        throw std::invalid_argument("Empty list\n");
-    } else {
-        top = top - 1;
-        return top;
+    if(data.empty()) {
+        throw runtime_error("Empty stack");
     }
-
-}
-
-void Stack::push(int e) {
-    stack[top].insertFirst(e);
-    top++;
+    return data.removeFirst();
 }
 
 bool Stack::isEmpty() const {
-    if (top == 0) {
-        return true;
-    }
-    return false;
+    return data.empty();
 }
+//Stack::~Stack() {
+//    cout << "Stack Destruktor" << endl;
+//    while (top != 0) {
+//        pop();
+//    }
+//
+//}
+//
+//int Stack::pop() {
+//    if (top <= 0) {
+//        throw std::invalid_argument("Empty list\n");
+//    } else {
+//        top = top - 1;
+//        return top;
+//    }
+//
+//}
+//
+//void Stack::push(int e) {
+//    stack[top].insertFirst(e);
+//    top++;
+//}
+//
+//bool Stack::isEmpty() const {
+//    if (top == 0) {
+//        return true;
+//    }
+//    return false;
+//}
+//
+//void Stack::print() const {
+//    for (int i = 0; i < top; i++) {
+//        stack[i].print();
+//    }
+//}
 
-void Stack::print() const {
-    for (int i = 0; i < top; i++) {
-        stack[i].print();
-    }
-}
+
 
 
 //

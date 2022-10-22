@@ -27,21 +27,28 @@ int main() {
 //        cout<<endl<< error.what();
 //    }
 
-    list->remove(7, List::DeleteFlag::EQUAL);
+    list->remove(1, List::DeleteFlag::EQUAL);
     cout << endl;
     list->print();
 
     cout << endl;
 
-    Stack *stack = new Stack();
+    Stack myStack;
+    int e;
+    cout << "Enter number of elements in stack:";
+    cin >> e;
+    for ( int i = 0; i < e; i++) {
+        myStack.push(i);
+    }
 
-    stack->push(3);
-    stack->push(4);
-    stack->push(36);
+    cout << "Is the stack empty? ";
+    cout << myStack.isEmpty() << endl;
 
-    stack->pop();
-
-    stack->print();
+    for(int i = 0; i < e; i++) {
+        cout << myStack.pop() << endl;
+    }
+    cout << "Is the stack empty? ";
+    cout << myStack.isEmpty() << endl;
 
     return 0;
 }

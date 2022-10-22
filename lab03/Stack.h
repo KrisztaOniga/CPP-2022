@@ -16,28 +16,39 @@ using namespace std;
 #define MAX 1000
 
 class Stack {
-    int top;
-
-public:
-    Stack() {
-        cout << "Stack Konstruktor" << endl;
-        top = 0;
-    }
-
-    ~Stack();
-
-    void push(int e);
-
-    int pop();
-
-    bool isEmpty() const;
-
-    void print() const;
-
-
 private:
-    List stack[max];
+    List data;
+public:
+    Stack() {};
+    void push(int e);
+    int pop();
+    bool isEmpty() const;
 };
+
+
+//class Stack {
+//    int top;
+//
+//public:
+//    Stack() {
+//        cout << "Stack Konstruktor" << endl;
+//        top = 0;
+//    }
+//
+//    ~Stack();
+//
+//    void push(int e);
+//
+//    int pop();
+//
+//    bool isEmpty() const;
+//
+//    void print() const;
+//
+//
+//private:
+//    List stack[max];
+//};
 
 //
 //class Stack {

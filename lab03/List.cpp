@@ -63,49 +63,68 @@ int List::removeFirst() {
     return tempValue;
 }
 
-void List::remove(int d, DeleteFlag df){
-    switch (df) {
-        case DeleteFlag::LESS:{
-            Node *temp = this->first;
+void List::remove(int d, DeleteFlag df) {
+    Node *p = first;
 
-            while(temp){
-                if(temp->value < d){
-                    //torles
-                }
-                temp = temp->next;
-            }
-            temp = nullptr;
-            break;
-        }
-        case DeleteFlag::EQUAL:{
-            Node *temp = this->first;
+    if( (p->value < d && df == DeleteFlag::LESS) || (p->value == d && df == DeleteFlag::EQUAL) || (p->value > d && df == DeleteFlag::GREATER) ){
+        removeFirst();
+        return;
+    }
 
-            while(temp){
-                if(temp->value == d){
-                    //torles
-                }
-                temp = temp->next;
-            }
-            temp = nullptr;
-            break;
-        }
-        case DeleteFlag::GREATER:{
-            Node *temp = this->first;
+    for ( Node *x = first; x ; x = x->next) {
 
-            while(temp){
-                if(temp->value > d){
-                    //torles
-                }
-                temp = temp->next;
-            }
-            temp = nullptr;
-            break;
+        if( (x->value < d && df == DeleteFlag::LESS) || (x->value == d && df == DeleteFlag::EQUAL) || (x->value > d && df == DeleteFlag::GREATER) ) {
+            p->next = x->next;
+            return;
         }
-        default:{
-            break;
-        }
+        p = x;
     }
 }
+
+//
+//void List::remove(int d, DeleteFlag df){
+//    switch (df) {
+//        case DeleteFlag::LESS:{
+//            Node *temp = this->first;
+//
+//            while(temp){
+//                if(temp->value < d){
+//                    //torles
+//                }
+//                temp = temp->next;
+//            }
+//            temp = nullptr;
+//            break;
+//        }
+//        case DeleteFlag::EQUAL:{
+//            Node *temp = this->first;
+//
+//            while(temp){
+//                if(temp->value == d){
+//                    //torles
+//                }
+//                temp = temp->next;
+//            }
+//            temp = nullptr;
+//            break;
+//        }
+//        case DeleteFlag::GREATER:{
+//            Node *temp = this->first;
+//
+//            while(temp){
+//                if(temp->value > d){
+//                    //torles
+//                }
+//                temp = temp->next;
+//            }
+//            temp = nullptr;
+//            break;
+//        }
+//        default:{
+//            break;
+//        }
+//    }
+//}
 
 
 //void List::remove(int d, List::DeleteFlag df) {
