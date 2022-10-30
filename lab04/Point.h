@@ -15,6 +15,8 @@ using namespace std;
 class Point {
 private:
     int x, y;
+    static int counter;
+
 public:
     Point(int x = 0, int y = 0);
 
@@ -25,6 +27,10 @@ public:
     double distanceTo(const Point& point) const;
 
     void print() const;
+
+    Point(const Point&);
+    ~Point();
+    static int getCounter();
 };
 
 

@@ -29,3 +29,20 @@ double Point::distanceTo(const Point &point) const {
 void Point::print() const {
     std::cout << "( " << getX() << "," << getY() << " )" << std::endl;
 }
+
+//move contructor
+Point::Point(const Point &point) {
+    this->x = point.x;
+    this->y = point.y;
+    ++this->counter;
+}
+
+Point::~Point() {
+    --this->counter;
+}
+
+int Point::getCounter() {
+    return counter;
+}
+
+int Point::counter{0};

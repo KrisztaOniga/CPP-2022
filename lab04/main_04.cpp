@@ -19,5 +19,10 @@ int main() {
         cout<<setw(16) << pSet.numDistinctDistances()<<endl;
         n = n << 1;
     }
+
+    PointSet pset1(10);
+    cout<<"#points: " <<Point::getCounter()<<endl;
+    PointSet pset2(20);
+    cout<<"#points: " <<Point::getCounter()<<endl;
     return 0;
 }

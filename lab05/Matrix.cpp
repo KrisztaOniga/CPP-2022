@@ -2,9 +2,7 @@
 // Created by Kriszta Oniga on 10/20/2022.
 //
 #include "Matrix.h"
-
 #include <iostream>
-#include "Matrix.h"
 
 // Default constructor
 Matrix::Matrix(int mRows, int mCols) {
