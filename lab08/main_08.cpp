@@ -50,7 +50,7 @@ int main() {
             "July", "August", "September", "October", "November", "December"
     };
 
-    auto found4{count_if(months.begin(), months.end(),[]( string s){
+    auto found4{count_if(months.begin(), months.end(),[](string s){
         return (s.length() == 5);
     })};
 
@@ -133,17 +133,27 @@ int main() {
 
 
     cout<<endl<<endl<<"Kilences feladat: "<<endl;
-    vector<char> alphabet {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g',
-            'h', 'i', 'j', 'k', 'l', 'm', 'n',
-            'o', 'p', 'q', 'r', 's', 't', 'u',
-            'v', 'w', 'x', 'y', 'z'
+    vector<string> alphabet = {
+            "a", "b", "c", "d", "e", "f", "g",
+            "h", "i", "j", "k", "l", "m", "n",
+            "o", "p", "q", "r", "s", "t", "u",
+            "v", "w", "x", "y", "z"
     };
 
     random_shuffle(alphabet.begin(), alphabet.end());
     for (const auto & i : alphabet){
         std::cout << i << ' '<<endl;
     }
+
+    sort(months2.begin(), months2.end(),[&](const auto a, const auto b){
+        return a < b;
+    });
+
+    for (const auto& i : months2){
+        std::cout <<i<<endl;
+    }
+
+
 
     return 0;
 }

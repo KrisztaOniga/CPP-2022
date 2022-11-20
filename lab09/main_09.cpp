@@ -1,6 +1,7 @@
 #include <iostream>
+#include "Ceg.h"
 
 int main() {
-    std::cout << "Hello, Lab_09" << std::endl;
+
     return 0;
 }
