@@ -8,21 +8,24 @@
 
 class Ceg{
 protected:
+    string name;
     vector<Alkalmazott *> alkalmazottak;
 public:
-    explicit Ceg(const vector<Alkalmazott *> &alkalmazottak);
+    explicit Ceg(string name){
+        this->name = name;
+    }
 
     void addAlkalmazott(Alkalmazott *alkalmazott);
 
-    void deleteAlkalmazott(int id);
+    void deleteAlkalmazott2(int id);
 
-    void addAlkalmazottToManager(Alkalmazott *alkalmazott);
+    static void addAlkalmazottToManager(Alkalmazott *alkalmazott, Manager *manager);
 
-    void deleteAlkalmazottToManager(Manager *manager);
+    static void deleteAlkalmazottFromManager(Alkalmazott *alkalmazott,Manager *manager);
 
-    void printAlkalmazottak();
+    void printAlkalmazottak(ostream &os);
 
-    void printManagers();
+    void printManagers(ostream &os);
 };
 
 

@@ -9,9 +9,9 @@
 #include "Alkalmazott.h"
 
 class Manager : public Alkalmazott {
-protected:
-    vector<Alkalmazott *> alkalmazottak;
+private:
 public:
+    vector<Alkalmazott *> beosztottjai;
 
     static const string MANAGER_MUNKAKOR;
 
@@ -19,7 +19,9 @@ public:
 
     void addAlkalmazott(Alkalmazott *alkalmazott);
 
-    void deleteAlkalmazott(int id);
+    void deleteAlkalmazott(Alkalmazott *);
+
+    void deleteAlkalmazottbyID(int);
 
     int beosztottakSzama() const;
 

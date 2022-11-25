@@ -9,25 +9,41 @@ Manager::Manager(const string &vezetekNev, const string &keresztNev, int szulete
 }
 
 void Manager::addAlkalmazott(Alkalmazott *alkalmazott) {
-    alkalmazottak.emplace_back(alkalmazott);
+    beosztottjai.emplace_back(alkalmazott);
 }
 
-void Manager::deleteAlkalmazott(int id) {
+void Manager::deleteAlkalmazott(Alkalmazott *alkalmazott) {
     int poz;
-    for (int i = 0; i < alkalmazottak.size(); ++i) {
-        if(alkalmazottak[i]->getID() == id){
+    for (int i = 0; i < beosztottjai.size(); ++i) {
+        if(beosztottjai[i]== alkalmazott){
             poz = i;
         }
     }
-    alkalmazottak.erase(alkalmazottak.begin() + poz);
+    beosztottjai.erase(beosztottjai.begin() + poz);
 }
 
+void Manager::deleteAlkalmazottbyID(int id) {
+    int poz;
+    for (int i = 0; i < beosztottjai.size(); ++i) {
+        if(beosztottjai[i]->getID() == id){
+            poz = i;
+        }
+    }
+    beosztottjai.erase(beosztottjai.begin() + poz);
+}
+
+
+
 int Manager::beosztottakSzama() const {
-    return alkalmazottak.size();
+    return beosztottjai.size();
 }
 
 void Manager::print(ostream &os) {
-    Alkalmazott::print(os);
+    os << "Manager " << this->id << " " << this->vezetekNev
+       << " " << this->keresztNev << " beosztottjai:\n";
+    for (auto &alk: beosztottjai) {
+        os <<"\tAlkalmazott "<< alk->getID() <<" "<< *alk <<  endl;
+    }
 }
 
 const string Manager::MANAGER_MUNKAKOR = "manager";

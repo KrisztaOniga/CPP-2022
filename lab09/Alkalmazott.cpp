@@ -13,7 +13,7 @@ Alkalmazott::Alkalmazott(const string &vezetekNev, const string &keresztNev, int
 
 void Alkalmazott::print(ostream &os) {
     Szemely::print(os);
-    os<<" " << this->munkakor;
+    os<<" " << this->munkakor<< " ";
 }
 
 string Alkalmazott::getMunkakor() {
