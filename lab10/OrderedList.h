@@ -7,8 +7,11 @@
 
 #include <functional>
 #include <iostream>
-
 using namespace std;
+
+// Class declaration
+template< class T, class LessComp=less<T>, class Equal=equal_to<T> >
+class Iterator;
 
 // Class definition
 template<class T, class LessComp = less<T>, class Equal = equal_to<T> >
@@ -21,8 +24,11 @@ private:
         Node(T t, Node *node) : value(t), next(node) {}
     };
 
+    friend class Iterator<T, LessComp, Equal>;
+
     Node *first{nullptr};
     int numElements{0};
+
 public:
     OrderedList();
 
@@ -36,12 +42,43 @@ public:
 
     int size();
 
-    bool find(T &) const;
-
     void listItems(ostream &);
+
+    bool find(const T &what);
+};
+
+// Class definition
+template<class T, class LessComp, class Equal>
+class Iterator {
+private:
+    OrderedList<T, LessComp, Equal> &list;
+    typename OrderedList<T, LessComp, Equal>::Node *act;
+
+public:
+    Iterator(OrderedList<T, LessComp, Equal> &orderedList);
+
+    bool hasNext();
+
+    T next();
 
 };
 
+template<class T, class LessComp, class Equal>
+Iterator<T, LessComp, Equal>::Iterator(OrderedList<T, LessComp, Equal> &orderedList) :list(orderedList), act(orderedList.first) {}
+
+template<class T, class LessComp, class Equal>
+bool Iterator<T, LessComp, Equal>::hasNext() {
+    if ( act->next == nullptr ) {
+        return false;
+    }
+    return true;
+}
+
+template<class T, class LessComp, class Equal>
+T Iterator<T, LessComp, Equal>::next() {
+    act = act->next;
+    return act->value;
+}
 template<class T, class LessComp, class Equal>
 OrderedList<T, LessComp, Equal>::OrderedList() {
     this->first = nullptr;
@@ -150,31 +187,43 @@ void OrderedList<T, LessComp, Equal>::insert(T &t) {
 
 template<class T, class LessComp, class Equal>
 void OrderedList<T, LessComp, Equal>::remove(T &t) {
-    if (this->isEmpty()) {
-        cout<<endl<<"The list is empty"<< endl;
-        return;
-    }
-    Node *p = first;
+    Node *previous = first;
+    Node *act = first;
 
-    for ( Node *x = first; x ; x = x->next) {
-
-        if( (x->value < t) || (x->value == t) || (x->value > t) ) {
-            p->next = x->next;
-            return;
+    while( act != nullptr ){
+        if( act->value == t && act == first ) {
+            first = act->next;
+            delete act;
+            act = first;
+            continue;
         }
-        p = x;
+
+        if ( act->value == t ) {
+            previous->next = act->next;
+            delete act;
+            act = previous->next;
+            continue;
+        }
+
+        previous = act;
+        act = act->next;
     }
+    previous = nullptr;
 }
 
 template<class T, class LessComp, class Equal>
-bool OrderedList<T, LessComp, Equal>::find(T & t) const {
-    Node *temp = this->first;
-    while(temp){
-        if(temp->value == t) return true;
-        temp = temp->next;
+bool OrderedList<T, LessComp, Equal>::find(const T &what) {
+    Node *act = this->first;
+
+    while ( act != nullptr ) {
+        if ( Equal()(act->value, what)){
+            return true;
+        }
+        act  = act->next;
     }
-    temp = nullptr;
+
     return false;
+
 }
 
 #endif //CPP_2022_ORDEREDLIST_H

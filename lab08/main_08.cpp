@@ -1,11 +1,22 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <map>
 using namespace std;
 
 bool greater5(int a, int b){
     return (a > b);
+}
+
+map<char,int> order;
+
+bool compChar(char c1, char c2){
+   return order[c1] < order[c2];
+}
+
+bool compString(const string &s1, const string &s2) {
+    return lexicographical_compare(
+            s1.begin(), s1.end(), s2.begin(), s2.end(), compChar);
 }
 
 int main() {
@@ -133,11 +144,11 @@ int main() {
 
 
     cout<<endl<<endl<<"Kilences feladat: "<<endl;
-    vector<string> alphabet = {
-            "a", "b", "c", "d", "e", "f", "g",
-            "h", "i", "j", "k", "l", "m", "n",
-            "o", "p", "q", "r", "s", "t", "u",
-            "v", "w", "x", "y", "z"
+    vector<char> alphabet = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g',
+            'h', 'i', 'j', 'k', 'l', 'm', 'n',
+            'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z'
     };
 
     random_shuffle(alphabet.begin(), alphabet.end());
@@ -145,15 +156,22 @@ int main() {
         std::cout << i << ' '<<endl;
     }
 
-    sort(months2.begin(), months2.end(),[&](const auto a, const auto b){
-        return a < b;
-    });
+    for (int i = 0; i < alphabet.size(); ++i) {
+        order.insert(pair<char,int>(alphabet[i],i));
+    }
+
+    map<char, int>::iterator itr;
+    for (itr = order.begin(); itr != order.end(); ++itr) {
+        cout << '\t' << itr->first << '\t' << itr->second
+             << '\n';
+    }
+    cout << endl;
+
+    std::sort(months2.begin(), months2.end(), compString);
 
     for (const auto& i : months2){
         std::cout <<i<<endl;
     }
-
-
 
     return 0;
 }
